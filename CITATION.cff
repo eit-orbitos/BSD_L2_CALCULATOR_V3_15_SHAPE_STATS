@@ -1,0 +1,48 @@
+# examples/shape_stats_sort.sage
+# Created by: Mr. Toni Mladenovski
+# Sort rank-2 Sha=1 curves by sin^2(theta).
+
+from sage.all import *
+
+RR = RealField(80)
+
+LABELS = [
+    "389a1","433a1","446d1","563a1","571b1","643a1",
+    "655a1","664a1","681c1","707a1","709a1","718b1",
+    "794a1","817a1","916c1","944e1","997b1","997c1","1001c1"
+]
+
+rows = []
+
+for lab in LABELS:
+    E = EllipticCurve(lab).global_minimal_model()
+    if E.rank() != 2:
+        continue
+
+    P, Q = E.gens()[0], E.gens()[1]
+    h1 = RR(P.height())
+    h2 = RR(Q.height())
+    hprod = h1*h2
+    reg = RR(E.regulator())
+    sin2 = reg/hprod
+    theta = RR(arcsin(sqrt(sin2))*180/pi)
+
+    rows.append({
+        "label": lab,
+        "N": int(E.conductor()),
+        "sin2": float(sin2),
+        "theta": float(theta),
+        "Reg": float(reg),
+        "h1h2": float(hprod),
+        "cprod": int(E.tamagawa_product()),
+        "sha": float(RR(E.sha().an()))
+    })
+
+rows = sorted(rows, key=lambda r: r["sin2"])
+
+print("label,N,sin2theta,theta_deg,Reg,h1h2,cprod,sha")
+for r in rows:
+    print("{},{},{:.12g},{:.8f},{:.12g},{:.12g},{},{}".format(
+        r["label"], r["N"], r["sin2"], r["theta"],
+        r["Reg"], r["h1h2"], r["cprod"], r["sha"]
+    ))

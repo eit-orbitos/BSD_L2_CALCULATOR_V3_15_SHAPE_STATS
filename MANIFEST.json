@@ -1,0 +1,120 @@
+# bsd_calculator.sage
+# BSD_L2_CALCULATOR_V3_12
+# Created by: Mr. Toni Mladenovski
+# BSD_PROOF = NO
+# COMPUTATIONAL_VERIFICATION = YES
+
+from sage.all import *
+import math
+
+RR = RealField(80)
+
+def omega_bsd(E):
+    E = E.global_minimal_model()
+    omega_raw = RR(E.period_lattice().real_period())
+    c_real = 2 if E.discriminant() > 0 else 1
+    return RR(c_real) * omega_raw
+
+def nearest_square(x, tol=1e-4):
+    xf = float(x)
+    if xf <= 0 or math.isnan(xf) or math.isinf(xf):
+        return None, None, False
+    n = round(math.sqrt(xf))
+    sq = n * n
+    err = abs(xf - sq) / max(1.0, abs(xf))
+    return sq, err, err < tol
+
+def leading_l_value(E, rank):
+    L = E.lseries().dokchitser()
+    if rank == 0:
+        return RR(L(1))
+    return RR(L.derivative(1, rank)) / RR(factorial(rank))
+
+def raw_l_derivative(E, rank):
+    L = E.lseries().dokchitser()
+    if rank == 0:
+        return RR(L(1))
+    return RR(L.derivative(1, rank))
+
+def analyze_shape(E):
+    E = E.global_minimal_model()
+    if E.rank() != 2:
+        raise ValueError("analyze_shape currently expects rank 2.")
+    gens = E.gens()
+    if len(gens) < 2:
+        raise ValueError("Need at least two independent generators.")
+    P, Q = gens[0], gens[1]
+    h1 = RR(P.height())
+    h2 = RR(Q.height())
+    hprod = h1 * h2
+    reg = RR(E.regulator())
+    sin2theta = reg / hprod if hprod != 0 else RR(0)
+    return {
+        "h1": h1, "h2": h2, "h1h2": hprod,
+        "regulator": reg, "sin2theta": sin2theta,
+        "P": P, "Q": Q
+    }
+
+def bsd_sha_proxy(label_or_curve):
+    if isinstance(label_or_curve, str):
+        E = EllipticCurve(label_or_curve).global_minimal_model()
+        label = label_or_curve
+    else:
+        E = label_or_curve.global_minimal_model()
+        try:
+            label = E.cremona_label()
+        except Exception:
+            label = str(E.ainvs())
+
+    rank = E.rank()
+    if rank not in [0, 1, 2]:
+        raise ValueError("This calculator supports rank 0, 1, and 2 only.")
+
+    lead = leading_l_value(E, rank)
+    omega = omega_bsd(E)
+    reg = RR(1) if rank == 0 else RR(E.regulator())
+    cprod = RR(E.tamagawa_product())
+    tors = RR(E.torsion_order())
+    sha_proxy = lead * tors**2 / (omega * reg * cprod)
+    sq, sq_err, sq_ok = nearest_square(sha_proxy)
+
+    try:
+        sha_an = RR(E.sha().an())
+    except Exception:
+        sha_an = None
+
+    return {
+        "label": label,
+        "conductor": int(E.conductor()),
+        "rank": int(rank),
+        "leading_value": lead,
+        "raw_l_derivative": raw_l_derivative(E, rank),
+        "omega": omega,
+        "regulator": reg,
+        "cprod": int(cprod),
+        "tors": int(tors),
+        "sha_proxy": sha_proxy,
+        "sha_an": sha_an,
+        "nearest_square": sq,
+        "square_error": sq_err,
+        "square_ok": sq_ok,
+    }
+
+def print_bsd_row(label_or_curve):
+    r = bsd_sha_proxy(label_or_curve)
+    sha_an_str = str(r["sha_an"]) if r["sha_an"] is not None else "None"
+    print("{label},{conductor},{rank},{lead:.12g},{raw:.12g},{omega:.12g},{reg:.12g},{cprod},{tors},{sha:.12g},{sha_an},{sq},{err:.3e},{ok}".format(
+        label=r["label"], conductor=r["conductor"], rank=r["rank"],
+        lead=float(r["leading_value"]), raw=float(r["raw_l_derivative"]),
+        omega=float(r["omega"]), reg=float(r["regulator"]),
+        cprod=r["cprod"], tors=r["tors"],
+        sha=float(r["sha_proxy"]), sha_an=sha_an_str,
+        sq=r["nearest_square"], err=r["square_error"], ok=r["square_ok"]
+    ))
+
+if __name__ == "__main__":
+    print("label,N,rank,leading_value,raw_l_derivative,omega,regulator,cprod,tors,sha_proxy,sha_an,nearest_square,square_error,square_ok")
+    for lab in ["389a1", "2849a1", "4343b1", "5389a1"]:
+        print_bsd_row(lab)
+    E570 = EllipticCurve(QQ, [1, -1, 0, -116, 400]).global_minimal_model()
+    print_bsd_row(E570)

@@ -6,7 +6,9 @@ authors:
   - family-names: "Mladenovski"
     given-names: "Toni"
     orcid: "https://orcid.org/0009-0009-8343-662X"
-version: "3.15.2"
+version: "3.15.3"
+doi: "10.5281/zenodo.23148220"
+date-released: "2026-10-04"
 license: "CC-BY-4.0"
 repository-code: "https://github.com/eit-orbitos/BSD_L2_CALCULATOR_V3_15_SHAPE_STATS"
 abstract: >-

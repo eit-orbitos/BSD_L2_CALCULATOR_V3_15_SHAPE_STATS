@@ -1,15 +1,11 @@
-# Claim Boundary / Safety Boundary
 
-**Package:** BSD_L2_CALCULATOR_V3_12  
-**Created by:** Mr. Toni Mladenovski
+Creative Commons Attribution 4.0 International
 
-## Correct status
+Copyright © 2026 Toni Mladenovski
 
-```text
-BSD_PROOF: NO
-COMPUTATIONAL_VERIFICATION: YES
-NORMALIZATION_CONFIRMED_ON_EXAMPLES: YES
-RANK_AWARE_CALCULATOR: YES
-```
+This work is licensed under the Creative Commons Attribution 4.0 International License.
 
-This is a computational research package, not a formal proof submission.
+You are free to share and adapt the material for any purpose, including commercially, provided appropriate attribution is given.
+
+Full license:
+https://creativecommons.org/licenses/by/4.0/legalcode

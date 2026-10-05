@@ -1,8 +1,12 @@
-# BSD L2 Calculator V3.12
+ # BSD L2 Calculator V3.15.3
 
-**Created by:** Mr. Toni Mladenovski  
-**Status:** Computational verification package — not a proof of BSD  
-**Version:** V3.12
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23148220.svg)](https://doi.org/10.5281/zenodo.23148220)
+
+**Created by:** Toni Mladenovski
+**Status:** Computational verification package — not a proof of BSD
+**Version:** V3.15.3
+**Zenodo DOI:** https://doi.org/10.5281/zenodo.23148220
+
 
 ## Purpose
 

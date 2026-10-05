@@ -1,6 +1,6 @@
  # BSD L2 Calculator V3.15.3
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23148220.svg)](https://doi.org/10.5281/zenodo.23148220)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23148220.svg)](https://doi.org/10.5281/zenodo.23148670)
 
 **Created by:** Toni Mladenovski
 **Status:** Computational verification package — not a proof of BSD

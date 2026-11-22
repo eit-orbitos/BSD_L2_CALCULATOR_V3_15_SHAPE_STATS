@@ -2,8 +2,12 @@
 
 **Created by:** Toni Mladenovski
 **Status:** Computational verification package — not a proof of BSD
-**Version:** V3.15.4 (correction release candidate, see `CORRECTIONS_v3_15_4.md`) — not yet tagged or released
-**DOI:** no V3.15.4 DOI has been assigned yet. The existing DOI [10.5281/zenodo.23148670](https://doi.org/10.5281/zenodo.23148670) belongs to the **previous version (V3.15.3)** and must not be cited for V3.15.4.
+**Version:** V3.15.4 (published correction release, see `CORRECTIONS_v3_15_4.md`)
+**V3.15.4 DOI:** [10.5281/zenodo.24435439](https://doi.org/10.5281/zenodo.24435439). Published November 22, 2026.
+
+The previous V3.15.3 DOI remains [10.5281/zenodo.23148670](https://doi.org/10.5281/zenodo.23148670); do not use it to cite V3.15.4.
+
+**Post-release metadata update:** the DOI was added after publication. The `v3.15.4` tag and the Zenodo archive remain unchanged; this documentation update does not create a new software release.
 
 ## Purpose
 

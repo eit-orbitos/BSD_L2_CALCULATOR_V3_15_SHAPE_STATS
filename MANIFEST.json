@@ -10,8 +10,8 @@
   "files": [
     {
       "path": "CITATION.cff",
-      "bytes": 1072,
-      "sha256": "49bc692a0319db95e421740602e02f2cb412d6aad489f06c7198a2d2d92d643e"
+      "bytes": 1091,
+      "sha256": "331dcf765cb56d72fcdb13e3e9afda341006e57078f6decf56d92024eb4e4f94"
     },
     {
       "path": "CLAIM_BOUNDARY.md",
@@ -30,8 +30,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6990,
-      "sha256": "11f54c1ed58b082eb45802d98c5d1cf00897790b145f10a92bfdf7b21fd5beb8"
+      "bytes": 7191,
+      "sha256": "d160fb30fd0d98bf7020315a45e2a2cee925cea32809eeeba037fd0da8b9d673"
     },
     {
       "path": "RELEASE_NOTES_v3_15_4.md",

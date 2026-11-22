@@ -7,10 +7,11 @@ authors:
     given-names: "Toni"
     orcid: "https://orcid.org/0009-0009-8343-662X"
 version: "3.15.4"
+doi: "10.5281/zenodo.24435439"
 identifiers:
   - type: doi
-    value: "10.5281/zenodo.23148670"
-    description: "DOI of the previous version (V3.15.3). No V3.15.4 DOI has been assigned yet."
+    value: "10.5281/zenodo.24435439"
+    description: "Version-specific DOI for the published V3.15.4 software archive."
 date-released: "2026-11-22"
 license: "CC-BY-4.0"
 repository-code: "https://github.com/eit-orbitos/BSD_L2_CALCULATOR_V3_15_SHAPE_STATS"

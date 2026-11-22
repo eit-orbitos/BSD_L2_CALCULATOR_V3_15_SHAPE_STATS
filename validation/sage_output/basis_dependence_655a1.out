@@ -1,0 +1,3 @@
+cremona: sin2theta = 0.998222799921, theta = 87.583874 deg, gram_det = 0.0989535198922, gauss_reduced = True
+skewed: sin2theta = 0.000336278254903, theta = 1.050743 deg, gram_det = 0.0989535198922, gauss_reduced = False
+skewed_then_reduced: sin2theta = 0.998222799921, theta = 87.583874 deg, gram_det = 0.0989535198922, gauss_reduced = True

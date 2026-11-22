@@ -1,21 +1,25 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it."
-title: "BSD L2 Calculator V3.15 — SHAPE Statistics and Sha Verification"
+title: "BSD L2 Calculator V3.15.4 — SHAPE Statistics and Sha Verification (correction release)"
 type: software
 authors:
   - family-names: "Mladenovski"
     given-names: "Toni"
     orcid: "https://orcid.org/0009-0009-8343-662X"
-version: "3.15.3"
-doi: "10.5281/zenodo.23148670"
-date-released: "2026-10-04"
+version: "3.15.4"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23148670"
+    description: "DOI of the previous version (V3.15.3). No V3.15.4 DOI has been assigned yet."
+date-released: "2026-11-22"
 license: "CC-BY-4.0"
 repository-code: "https://github.com/eit-orbitos/BSD_L2_CALCULATOR_V3_15_SHAPE_STATS"
 abstract: >-
   SageMath computational verification package for selected
   Birch and Swinnerton-Dyer leading-coefficient examples and
   rank-2 SHAPE statistics. This software does not claim a proof
-  of the Birch and Swinnerton-Dyer conjecture.
+  of the Birch and Swinnerton-Dyer conjecture. V3.15.4 retracts the
+  former 570l1 example and reports reduced-basis angle statistics.
 keywords:
   - BSD
   - Birch and Swinnerton-Dyer

@@ -1,120 +1,202 @@
-# bsd_calculator.sage
-# BSD_L2_CALCULATOR_V3_12
-# Created by: Mr. Toni Mladenovski
-# BSD_PROOF = NO
-# COMPUTATIONAL_VERIFICATION = YES
-
-from sage.all import *
-import math
-
-RR = RealField(80)
-
-def omega_bsd(E):
-    E = E.global_minimal_model()
-    omega_raw = RR(E.period_lattice().real_period())
-    c_real = 2 if E.discriminant() > 0 else 1
-    return RR(c_real) * omega_raw
-
-def nearest_square(x, tol=1e-4):
-    xf = float(x)
-    if xf <= 0 or math.isnan(xf) or math.isinf(xf):
-        return None, None, False
-    n = round(math.sqrt(xf))
-    sq = n * n
-    err = abs(xf - sq) / max(1.0, abs(xf))
-    return sq, err, err < tol
-
-def leading_l_value(E, rank):
-    L = E.lseries().dokchitser()
-    if rank == 0:
-        return RR(L(1))
-    return RR(L.derivative(1, rank)) / RR(factorial(rank))
-
-def raw_l_derivative(E, rank):
-    L = E.lseries().dokchitser()
-    if rank == 0:
-        return RR(L(1))
-    return RR(L.derivative(1, rank))
-
-def analyze_shape(E):
-    E = E.global_minimal_model()
-    if E.rank() != 2:
-        raise ValueError("analyze_shape currently expects rank 2.")
-    gens = E.gens()
-    if len(gens) < 2:
-        raise ValueError("Need at least two independent generators.")
-    P, Q = gens[0], gens[1]
-    h1 = RR(P.height())
-    h2 = RR(Q.height())
-    hprod = h1 * h2
-    reg = RR(E.regulator())
-    sin2theta = reg / hprod if hprod != 0 else RR(0)
-    return {
-        "h1": h1, "h2": h2, "h1h2": hprod,
-        "regulator": reg, "sin2theta": sin2theta,
-        "P": P, "Q": Q
+{
+  "package": "BSD_L2_CALCULATOR_V3_15_SHAPE_STATS",
+  "version": "3.15.4",
+  "created_by": "Toni Mladenovski",
+  "base_commit": "664c512",
+  "hash_algorithm": "SHA-256",
+  "bsd_proof": false,
+  "computational_verification": true,
+  "manifest_note": "SHA-256 of every file in the repository except this root MANIFEST.json; the archived historical archive/v3_15_3_retracted/MANIFEST.json is included as a hashed file.",
+  "files": [
+    {
+      "path": "CITATION.cff",
+      "bytes": 1072,
+      "sha256": "49bc692a0319db95e421740602e02f2cb412d6aad489f06c7198a2d2d92d643e"
+    },
+    {
+      "path": "CLAIM_BOUNDARY.md",
+      "bytes": 854,
+      "sha256": "b85d4691afea81900b8eeda31ca98394516d8ea5a9eedf53be146ab1f2070582"
+    },
+    {
+      "path": "CORRECTIONS_v3_15_4.md",
+      "bytes": 3315,
+      "sha256": "27e08c777e2fb6c49bad97cb2ff108ca05c3241a4e01a1a62c86e27d2f757cf1"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 372,
+      "sha256": "26856c0c5e6bc8e8086b89d90e1a173b174457bc74986f9cac433d605407a245"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6990,
+      "sha256": "11f54c1ed58b082eb45802d98c5d1cf00897790b145f10a92bfdf7b21fd5beb8"
+    },
+    {
+      "path": "RELEASE_NOTES_v3_15_4.md",
+      "bytes": 1982,
+      "sha256": "982bed341351620e55fe2714abeda2b7c8ddd20562017d262274d244e9860d00"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/ARTICLE_6B.md",
+      "bytes": 411,
+      "sha256": "b8c379a377e24a563c9ad6f64ffa13ef87bce6a8def8fc4706a19c6401ca98d9"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/CITATION.cff",
+      "bytes": 832,
+      "sha256": "0d536bcb3a88445a36a16d2b891b9c525e99600e6c81eb06508309d9b430c706"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/CLAIM_BOUNDARY.md",
+      "bytes": 332,
+      "sha256": "b3511e7c945b4072bd6bf476fcaf1ba25859eaff8f3706a713f54e587ba91e8d"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/MANIFEST.json",
+      "bytes": 3832,
+      "sha256": "5b039c706fa2e7295fc85ddae5546a7eeb2083d721779076fafaf49f2c6326c7"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/README.md",
+      "bytes": 2870,
+      "sha256": "7c4510b7dd14f363837760e9264691a4b1c3c7f0c121d6d04aab7c222dc00b02"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/README_ARCHIVE.md",
+      "bytes": 431,
+      "sha256": "db0627ea99f7af45ac5d68bfac6919a17905a1d22ff8b5b7472df85f6bdcf957"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/RELEASE_NOTES_v3_12.md",
+      "bytes": 496,
+      "sha256": "e7a4292d0407e1c611066e7d5525cb4da600c2ca2061b3e4f49c6c8085f38417"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/RELEASE_NOTES_v3_15.md",
+      "bytes": 722,
+      "sha256": "9d17cbf3e4f071395df4140f5c70ba72b403a40cb8a052082c26e821807cde44"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/TASKLOG_BSD_L2_CALCULATOR_V3_12.md",
+      "bytes": 1398,
+      "sha256": "5407610ba9a458e6ef10dd68d17601b3db0d2ff1e25f3666f4e05f6db806d913"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/V3_11_SHA_COMPENSATION_SIEVE.md",
+      "bytes": 338,
+      "sha256": "be5a25a2f47027729fc4021e493052bd3103fba3510dc436ee7c18d6b0a65807"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/V3_15_SHAPE_STATS.md",
+      "bytes": 541,
+      "sha256": "47718fb970350e33b541de49185de13c8fff124b4489e52bbebe28e4b4b40625"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/bsd_calculator.sage",
+      "bytes": 1155,
+      "sha256": "5f2ea22bc8193e7510483150f8d7827e7b2d3189eb46bf3f1b160ee3985f6ef6"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/rank0_sha9.sage",
+      "bytes": 440,
+      "sha256": "333c6dc40ceca66351e9410d5fea7f5c4205e0187381d1f5a9527bf62b648ed1"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/rank2_sha1.sage",
+      "bytes": 1935,
+      "sha256": "d151791b03440a332f8357b4e092b26765bcf77f3b30b0b0a73394509e0ad66b"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/shape_compensation_570l1.sage",
+      "bytes": 249,
+      "sha256": "e5fbbdce3653c3076c66af449aeb0816bdaf4d193eeb2ecc8469cc45cc92ae16"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/shape_compensation_570l1_v311.csv",
+      "bytes": 186,
+      "sha256": "c25299435a0b939d4e0fa0aa5b45301fd273f6ba83d61a1e677a42c32188c36b"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/shape_stats_sort.sage",
+      "bytes": 318,
+      "sha256": "90b6fc8e6b74502460205b99e7c481b5711cb1880c37e03086b591ea644bac9f"
+    },
+    {
+      "path": "archive/v3_15_3_retracted/shape_stats_v315.csv",
+      "bytes": 430,
+      "sha256": "e93c33f1e4c63cf85be12d8ed02becb43b6c7ed412d30eaf028828a701add730"
+    },
+    {
+      "path": "bsd_calculator.sage",
+      "bytes": 7055,
+      "sha256": "5fe0e5e576840a7509f353bc7697c724865eda84110c6383016bdf18c4e881d2"
+    },
+    {
+      "path": "data/rank2_sha4_candidates_v3_15_4.csv",
+      "bytes": 948,
+      "sha256": "dee7ab364bd5e98bef0c348601ddad7e5a74e23298604075b1c04b7c7d1fc8fe"
+    },
+    {
+      "path": "data/shape_stats_reduced_basis_v3_15_4.csv",
+      "bytes": 5604,
+      "sha256": "c1921dda1ee779853c2f5e7f697a647c2bfd84f9bec7212c5bde9ab0e38fff1e"
+    },
+    {
+      "path": "examples/basis_dependence_655a1.sage",
+      "bytes": 1033,
+      "sha256": "07bee797234d5f7362c6a4b0616b1f818f48533fb94edcd6db44ff83c1df62aa"
+    },
+    {
+      "path": "examples/rank0_sha9.sage",
+      "bytes": 391,
+      "sha256": "252968a919021fb44035819a7b1a5445330256ff0030ede7f7215777a3798d44"
+    },
+    {
+      "path": "examples/rank2_sha1_shape_stats.sage",
+      "bytes": 3230,
+      "sha256": "61718a0055959cc9827239cd86697069dc51cf04faa5baa4f0aa015ced186efd"
+    },
+    {
+      "path": "examples/rank2_sha4_194766c4.sage",
+      "bytes": 2043,
+      "sha256": "1542d9987e132e771f890dfd2217506447f409419b20f955e439c8a9ec41ff9a"
+    },
+    {
+      "path": "validation/SAGE_VALIDATION_v3_15_4.md",
+      "bytes": 11891,
+      "sha256": "23894bf39d57eda54029e2f56f7babd7144eef7abd05d741f207410dc8dc78d3"
+    },
+    {
+      "path": "validation/check_sage_outputs_v3_15_4.py",
+      "bytes": 4080,
+      "sha256": "94f8bfa34d6183927ed58f50b8856128d58c7b65491fbdbf91ae02791ff09eef"
+    },
+    {
+      "path": "validation/sage_output/basis_dependence_655a1.out",
+      "bytes": 341,
+      "sha256": "42f8f72dc899d08b4a352b65dbbbfb63e4f31fb5979acc451254f4e367e8c0b3"
+    },
+    {
+      "path": "validation/sage_output/rank0_sha9.out",
+      "bytes": 434,
+      "sha256": "d71e5f109cd64ce8b6d7941b532687949752689ffd42f4c28eefba35a2ebaa39"
+    },
+    {
+      "path": "validation/sage_output/rank2_sha1_shape_stats.out",
+      "bytes": 4912,
+      "sha256": "818e5b4b741869f18027d57185c2f2be07ca66a961471acf3c4dae9d8ba4cff0"
+    },
+    {
+      "path": "validation/sage_output/rank2_sha4_194766c4.out",
+      "bytes": 1026,
+      "sha256": "42707a6cd289c0079ab06a90af9dcb988130234be2c8056a55293d1d3e417b50"
+    },
+    {
+      "path": "verification/verify_bsd_pari_v3_15_4.py",
+      "bytes": 3961,
+      "sha256": "dbddcc94261434a8f0d7c069922af469e176113e20d89a9984c4d1f3af6cacb9"
     }
-
-def bsd_sha_proxy(label_or_curve):
-    if isinstance(label_or_curve, str):
-        E = EllipticCurve(label_or_curve).global_minimal_model()
-        label = label_or_curve
-    else:
-        E = label_or_curve.global_minimal_model()
-        try:
-            label = E.cremona_label()
-        except Exception:
-            label = str(E.ainvs())
-
-    rank = E.rank()
-    if rank not in [0, 1, 2]:
-        raise ValueError("This calculator supports rank 0, 1, and 2 only.")
-
-    lead = leading_l_value(E, rank)
-    omega = omega_bsd(E)
-    reg = RR(1) if rank == 0 else RR(E.regulator())
-    cprod = RR(E.tamagawa_product())
-    tors = RR(E.torsion_order())
-    sha_proxy = lead * tors**2 / (omega * reg * cprod)
-    sq, sq_err, sq_ok = nearest_square(sha_proxy)
-
-    try:
-        sha_an = RR(E.sha().an())
-    except Exception:
-        sha_an = None
-
-    return {
-        "label": label,
-        "conductor": int(E.conductor()),
-        "rank": int(rank),
-        "leading_value": lead,
-        "raw_l_derivative": raw_l_derivative(E, rank),
-        "omega": omega,
-        "regulator": reg,
-        "cprod": int(cprod),
-        "tors": int(tors),
-        "sha_proxy": sha_proxy,
-        "sha_an": sha_an,
-        "nearest_square": sq,
-        "square_error": sq_err,
-        "square_ok": sq_ok,
-    }
-
-def print_bsd_row(label_or_curve):
-    r = bsd_sha_proxy(label_or_curve)
-    sha_an_str = str(r["sha_an"]) if r["sha_an"] is not None else "None"
-    print("{label},{conductor},{rank},{lead:.12g},{raw:.12g},{omega:.12g},{reg:.12g},{cprod},{tors},{sha:.12g},{sha_an},{sq},{err:.3e},{ok}".format(
-        label=r["label"], conductor=r["conductor"], rank=r["rank"],
-        lead=float(r["leading_value"]), raw=float(r["raw_l_derivative"]),
-        omega=float(r["omega"]), reg=float(r["regulator"]),
-        cprod=r["cprod"], tors=r["tors"],
-        sha=float(r["sha_proxy"]), sha_an=sha_an_str,
-        sq=r["nearest_square"], err=r["square_error"], ok=r["square_ok"]
-    ))
-
-if __name__ == "__main__":
-    print("label,N,rank,leading_value,raw_l_derivative,omega,regulator,cprod,tors,sha_proxy,sha_an,nearest_square,square_error,square_ok")
-    for lab in ["389a1", "2849a1", "4343b1", "5389a1"]:
-        print_bsd_row(lab)
-    E570 = EllipticCurve(QQ, [1, -1, 0, -116, 400]).global_minimal_model()
-    print_bsd_row(E570)
+  ]
+}

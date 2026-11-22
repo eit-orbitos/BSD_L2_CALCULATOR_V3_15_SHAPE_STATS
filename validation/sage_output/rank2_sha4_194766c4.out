@@ -1,0 +1,9 @@
+label,N,P_reduced,Q_reduced,h1,h2,pairing,gram_det,sin2theta,theta_deg,relerr_vs_sage_pairing_matrix,relerr_vs_cremona_reg,gauss_reduced,saturation_index
+194766c4,194766,(5488;388078),(15424;1899178),8.40494045106,9.34965913815,-2.356678669,73.0293939449,0.929324266743,74.58258864,1.242e-16,1.392e-16,True,1
+194040co6,194040,(255990;129052966),(618065/16;385385049/64),10.5540403133,10.5669225522,2.11536693998,107.048949312,0.959876006415,78.44492740,1.039e-16,2.706e-15,True,1
+
+label,N,rank,leading_value,raw_l_derivative,omega,regulator,cprod,tors,sha_proxy,nearest_square,square_error,square_ok
+[1, 0, 0, -2077504, -1152726172],194766,2,18.3671502474,36.7343004948,0.125751764154,73.0293939449,2,2,4,4.0,8.882e-16,True
+  194766c4: torsion = (2,), L''(E,1)/2 / (Omega*Reg*prod c_p/tors^2) = 4  (expected 4)
+[0, 0, 0, -456382227, -3752677112114],194040,2,13.9865233347,27.9730466695,0.0326638501,107.048949312,4,2,4,4.0,6.661e-16,True
+  194040co6: torsion = (2,), L''(E,1)/2 / (Omega*Reg*prod c_p/tors^2) = 4  (expected 4)
